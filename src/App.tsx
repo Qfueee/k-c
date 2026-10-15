@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
 import Blog from './Blog'
 import logoSrc from './assets/logo.png'
+import {
+  BackgroundMusicProvider,
+  HeaderMusicToggle,
+  MobileDrawerMusicToggle,
+  FloatingMusicWidget,
+} from './BackgroundMusic'
 
 const WA_NUMBER = '51999999999'
 const waLink = (msg: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`
@@ -231,7 +237,8 @@ export default function App() {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <BackgroundMusicProvider>
+      <div className="min-h-screen flex flex-col">
       {/* Splash Screen with Skip button and click-to-dismiss */}
       {splash && (
         <div
@@ -278,6 +285,9 @@ export default function App() {
             ) : (
               <a href="#/blog" className="hidden sm:inline-flex font-extrabold text-xs sm:text-sm px-2.5 py-1.5 hover:text-leaf transition">Blog</a>
             )}
+
+            {/* Music Toggle */}
+            <HeaderMusicToggle />
 
             {/* Dark Mode Toggle */}
             <button
@@ -354,7 +364,12 @@ export default function App() {
                 <span>📞</span> Contacto y Despachos
               </a>
 
-              <div className="pt-3">
+              {/* Mobile Music Controller */}
+              <div className="pt-2">
+                <MobileDrawerMusicToggle />
+              </div>
+
+              <div className="pt-2">
                 <a
                   href={waLink('Hola K&C Expander, quiero hacer una consulta desde mi celular.')}
                   target="_blank"
@@ -507,6 +522,10 @@ export default function App() {
       >
         <WaIcon />
       </a>
+
+      {/* Floating Background Music Controller (Safe-area aware, left-aligned) */}
+      <FloatingMusicWidget />
     </div>
+    </BackgroundMusicProvider>
   )
 }
