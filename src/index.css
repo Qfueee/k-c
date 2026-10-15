@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800;9..144,900&family=Nunito:wght@400;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Fraunces', serif;
+  --font-sans: 'Nunito', system-ui, sans-serif;
+  --color-leaf: #3f9f55;
+  --color-forest: #14452a;
+  --color-lime: #a8d050;
+  --color-urea: #e0352b;
+  --color-cream: #f6f1e3;
+  --color-soil: #3a2a1c;
+  --color-paper: #f6f1e3;
+  --color-bark: #3a2a1c;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--color-cream);
+  color: var(--color-soil);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 100dvh;
+}
+::selection { background: var(--color-lime); color: var(--color-forest); }
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s ease-out forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.pop { transform: scale(0); transform-origin: var(--o, 50% 100%); transform-box: fill-box; animation: pop .8s cubic-bezier(.3,1.6,.5,1) forwards; }
+@keyframes pop { to { transform: scale(1); } }
+.sway { transform-origin: 50% 100%; animation: sway 5s ease-in-out infinite; }
+@keyframes sway { 50% { transform: rotate(2.5deg); } }
+.rise { animation: rise .8s ease-out both; }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+@keyframes splash { 0%,72% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.02); visibility: hidden; } }
+.splash { animation: splash 2.6s ease-in-out forwards; cursor: pointer; }
+.grow-logo { animation: grow 1.8s cubic-bezier(.22,.8,.3,1) both; transform-origin: 50% 100%; }
+@keyframes grow { 0% { clip-path: inset(100% 0 0 0); transform: scale(.7); } 25% { clip-path: inset(88% 0 0 0); } 100% { clip-path: inset(0 0 0 0); transform: scale(1); } }
+@keyframes floaty { 50% { transform: translateY(-8px) rotate(-1.5deg); } }
+.floaty { animation: floaty 5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { * { animation-duration: .01s !important; animation-delay: 0s !important; } }
+
+.dark { --color-cream: #0e1a12; --color-soil: #ece6d2; --color-forest: #0a2c1a; --color-bark: #060d08; color-scheme: dark; }
+.dark .splash { background: var(--color-cream); }
